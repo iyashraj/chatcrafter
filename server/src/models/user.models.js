@@ -31,7 +31,7 @@ const userSchema = new Schema(
       required: true,
       trim: true,
     },
-    display_image: {
+    avatar: {
       type: String,
     },
     lastLogin: {
