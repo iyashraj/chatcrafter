@@ -1,6 +1,7 @@
-import { app } from "./app";
-import ConnectDB from "./db";
+import { app } from "./app.js";
+import ConnectDB from "./db/index.js";
 import dotenv from "dotenv";
+import userRoutes from './routes/auth.routes.js'
 
 // env configuration
 dotenv.config({
@@ -16,4 +17,6 @@ ConnectDB()
   .catch((err) => {
     console.log(`server connection error: ${err}`);
   });
+
+  app.use("/api/v1/user", userRoutes);
 
