@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Navbar from "./components/navbar";
 
 function App() {
   const [theme, setTheme] = useState<string>("light")
@@ -21,7 +22,7 @@ function App() {
   return (
     <>
     <div className="dark:bg-red-700 ">
-      <p className="text-accent1">Hello, Tailwind CSS! <button onClick={themeChangeHandler}>Change Theme</button></p>
+      <Navbar />
     </div>
     </>
   );
