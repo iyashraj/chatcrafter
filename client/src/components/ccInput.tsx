@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorServices from "../utils/errorServices";
 
 interface InputProps {
   id?: string;
@@ -10,6 +11,8 @@ interface InputProps {
   isRequired?: boolean;
   isDisabled?: boolean;
   className?: string;
+  isError? : boolean;
+  errorMessage? : string | null;
 }
 
 const CCInput: React.FC<InputProps> = ({
@@ -22,6 +25,8 @@ const CCInput: React.FC<InputProps> = ({
   isRequired = false,
   isDisabled = false,
   className,
+  isError = false,
+  errorMessage = ""
 }) => {
   return (
     <div className={`flex flex-col  ${className}`}>
@@ -40,6 +45,7 @@ const CCInput: React.FC<InputProps> = ({
         placeholder={placeholder}
         value={value}
       />
+      {isError && <ErrorServices errorMessage={errorMessage} />}
     </div>
   );
 };

@@ -15,7 +15,7 @@ const Login: React.FC = () => {
       />
       <div className="flex flex-1 flex-col gap-7 pt-5 items-center font-montserrat">
         <div className="flex items-center flex-col">
-          <img className="w-16" src={CCIcon} alt="CCIcon" />
+          {/* <img className="w-16" src={CCIcon} alt="CCIcon" /> */}
           <h1 className="text-3xl font-bold">Welcome Back</h1>
         </div>
         <form className="w-full flex flex-col gap-5 items-center">
