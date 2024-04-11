@@ -10,6 +10,7 @@ module.exports = {
     colors: {
       ccgreen: "#1c8c35",
       ccpurple: "#BC0EE7",
+      ccred: "#fc3d03",
     },
     fontFamily:{
       indie: ['Indie Flower', 'cursive'],
