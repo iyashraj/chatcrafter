@@ -4,6 +4,8 @@ import ChatCrafter from "../assets/Group 7.png";
 import CCButton from "../components/ccButton";
 import CCInput from "../components/ccInput";
 import { registerDataError, validRegisterData } from "../utils/validate";
+import { registerUser } from "../webservices/user.erbservices";
+import toast, { Toaster } from "react-hot-toast";
 
 interface SignupData {
   username: string;
@@ -31,7 +33,7 @@ const Signup: React.FC = () => {
     confirmPassword: "",
     email: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
   });
   const [signupError, setSignupError] = useState<SignupError>({});
 
@@ -39,22 +41,29 @@ const Signup: React.FC = () => {
     const { id, value } = e.target;
     setSignupData((prev) => ({
       ...prev,
-      [id]: value
+      [id]: value,
     }));
   };
 
-  const signupHandler = (e: FormEvent<HTMLFormElement>): void => {
+  const signupHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     const res = validRegisterData(signupData);
     setSignupError(res);
-    if (!res || Object.keys(res).length === 0) {
-      // Handle successful form submission here
-      console.log("Form submitted successfully!");
+
+    if (res && res.submitForm) {
+      try {
+        await registerUser(signupData);
+        toast.success("User registered successfully!");
+        navigate("/login");
+      } catch (err:any) {
+        toast.error(err.message || "Something went wrong!");
+      }
     }
   };
 
   return (
     <div className="w-full flex justify-between h-full items-center">
+      <Toaster />
       <img
         className="object-contain w-auto h-[420px] select-none flex-1"
         src={ChatCrafter}
@@ -62,17 +71,14 @@ const Signup: React.FC = () => {
       />
       <div className="flex flex-1 flex-col gap-7 pt-5 items-center font-montserrat">
         <div className="flex items-center flex-col">
-          <h1 className="text-3xl font-bold ">Create an account</h1>
+          <h1 className="text-3xl font-bold">Create an account</h1>
         </div>
-        <form
-          className="w-full flex flex-col gap-5 items-center px-10"
-          onSubmit={signupHandler}
-        >
+        <form className="w-full flex flex-col gap-5 items-center px-10" onSubmit={signupHandler}>
           <div className="flex justify-between w-full gap-3">
             <CCInput
               id="username"
               className="w-full"
-              placeholder="enter username"
+              placeholder="Enter username"
               label="Username"
               isRequired={true}
               onChange={signUpFormHandler}
@@ -82,7 +88,7 @@ const Signup: React.FC = () => {
             <CCInput
               id="email"
               className="w-full"
-              placeholder="enter your email"
+              placeholder="Enter your email"
               label="Email"
               isRequired={true}
               onChange={signUpFormHandler}
@@ -94,14 +100,14 @@ const Signup: React.FC = () => {
             <CCInput
               id="firstName"
               className="w-full"
-              placeholder="enter your firstname"
+              placeholder="Enter your firstname"
               label="First Name"
               onChange={signUpFormHandler}
             />
             <CCInput
               id="lastName"
               className="w-full"
-              placeholder="enter your lastname"
+              placeholder="Enter your lastname"
               label="Last Name"
               onChange={signUpFormHandler}
             />
@@ -109,7 +115,7 @@ const Signup: React.FC = () => {
           <div className="flex justify-between w-full gap-3">
             <CCInput
               className="w-full"
-              placeholder="enter your password"
+              placeholder="Enter your password"
               label="Password"
               isRequired={true}
               onChange={signUpFormHandler}
@@ -120,7 +126,7 @@ const Signup: React.FC = () => {
             />
             <CCInput
               className="w-full"
-              placeholder="confirm your password"
+              placeholder="Confirm your password"
               label="Confirm Password"
               isRequired={true}
               onChange={signUpFormHandler}
@@ -130,13 +136,10 @@ const Signup: React.FC = () => {
               errorMessage={signupError.confirmPassword}
             />
           </div>
-          <CCButton className="w-full mt-5 px-5" text="Submit" onClick={signupHandler}/>
+          <CCButton className="w-full mt-5 px-5" text="Submit" onClick={signupHandler} />
           <div>
             Don't have an account?{" "}
-            <span
-              className="text-ccgreen font-bold cursor-pointer"
-              onClick={() => navigate("/login")}
-            >
+            <span className="text-ccgreen font-bold cursor-pointer" onClick={() => navigate("/login")}>
               Login
             </span>
           </div>
