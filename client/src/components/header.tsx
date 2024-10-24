@@ -1,7 +1,7 @@
 import Logo from "../assets/Group 8.png";
 import CCButton from "./ccButton";
 
-const Navbar: React.FC = () => {
+const Header: React.FC = () => {
   return (
     <div className="nav-container w-full h-20vh flex justify-between pt-2 pb-2 pr-10 pl-10 border-gray-950 items-center">
       <img
@@ -17,4 +17,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default Header;
