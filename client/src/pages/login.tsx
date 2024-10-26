@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import ChatCrafter from "../assets/Group 7.png";
 import CCButton from "../components/ccButton";
 import CCInput from "../components/ccInput";
-import GoogleAuth from '../authhandlers/googleAuth'
+import GoogleAuth from "../authhandlers/googleAuth";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+
   return (
     <div className="w-full flex justify-between h-full items-center">
       <img
@@ -18,7 +19,7 @@ const Login: React.FC = () => {
           {/* <img className="w-16" src={CCIcon} alt="CCIcon" /> */}
           <h1 className="text-3xl font-bold">Welcome Back</h1>
         </div>
-        <form className="w-full flex flex-col gap-5 items-center">
+        <form className="w-full flex flex-col gap-4 items-center">
           <CCInput
             className="w-[80%]"
             placeholder="enter your username or email"
@@ -31,16 +32,24 @@ const Login: React.FC = () => {
             label="Password"
             isRequired={true}
           />
-          <CCButton className="w-[80%] mt-5" text="Submit" />
+          <div className="flex w-[80%] items-center gap-2 font-semibold">
+            or -{" "}
+            <GoogleAuth
+              handleSuccess={(e) => console.log(e, "success")}
+              handleFailure={(e) => console.log(e, "failure")}
+              action_type = "signin_with"
+            />
+          </div>
+          <CCButton className="w-[80%] mt-3" text="Submit" />
           <div>
             Don't have an account?{" "}
             <span
               className="text-ccgreen font-bold cursor-pointer"
-              onClick={(): void => navigate("/signup")}>
+              onClick={(): void => navigate("/signup")}
+            >
               Register
             </span>
           </div>
-          <GoogleAuth handleSuccess={(e) => console.log(e,"success")} handleFailure={(e)=> console.log(e,"failure")}/>
         </form>
       </div>
     </div>

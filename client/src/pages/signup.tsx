@@ -6,6 +6,7 @@ import CCInput from "../components/ccInput";
 import { registerDataError, validRegisterData } from "../utils/validate";
 import { registerUser } from "../webservices/user.erbservices";
 import toast, { Toaster } from "react-hot-toast";
+import GoogleAuth from "../authhandlers/googleAuth";
 
 interface SignupData {
   username: string;
@@ -73,7 +74,7 @@ const Signup: React.FC = () => {
         <div className="flex items-center flex-col">
           <h1 className="text-3xl font-bold">Create an account</h1>
         </div>
-        <form className="w-full flex flex-col gap-5 items-center px-10" onSubmit={signupHandler}>
+        <form className="w-full flex flex-col gap-4 items-center px-10" onSubmit={signupHandler}>
           <div className="flex justify-between w-full gap-3">
             <CCInput
               id="username"
@@ -136,7 +137,15 @@ const Signup: React.FC = () => {
               errorMessage={signupError.confirmPassword}
             />
           </div>
-          <CCButton className="w-full mt-5 px-5" text="Submit" onClick={signupHandler} />
+          <div className="flex w-[100%] items-center gap-2 font-semibold">
+            or -{" "}
+            <GoogleAuth
+              handleSuccess={(e) => console.log(e, "success")}
+              handleFailure={(e) => console.log(e, "failure")}
+              action_type = "signup_with"
+            />
+          </div>
+          <CCButton className="w-full  px-5" text="Submit" onClick={signupHandler} />
           <div>
             Don't have an account?{" "}
             <span className="text-ccgreen font-bold cursor-pointer" onClick={() => navigate("/login")}>
