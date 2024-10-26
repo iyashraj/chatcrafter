@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import ChatCrafter from "../assets/Group 7.png";
 import CCButton from "../components/ccButton";
 import CCInput from "../components/ccInput";
-import CCIcon from "../assets/Group 9.png";
+import GoogleAuth from '../authhandlers/googleAuth'
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -40,6 +40,7 @@ const Login: React.FC = () => {
               Register
             </span>
           </div>
+          <GoogleAuth handleSuccess={(e) => console.log(e,"success")} handleFailure={(e)=> console.log(e,"failure")}/>
         </form>
       </div>
     </div>
