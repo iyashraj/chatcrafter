@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './styles/global.styles.css'
 import {GoogleOAuthProvider} from '@react-oauth/google'
+import {googleAuth} from '../config.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId='431975773998-s6duv26rvq2rcb7cssb1o19657cbn9dd.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId={googleAuth.web.client_id}>
       <App />
     </GoogleOAuthProvider>
   </React.StrictMode>,
